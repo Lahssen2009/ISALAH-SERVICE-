@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="نظام إدارة صيانة احترافي للمكيفات والثلاجات - حجايجي لحسن">
+    <meta name="theme-color" content="#0f3b4d">
+    <title>تبريد وتكييف حجايجي | نظام إدارة صيانة</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="brand">
+                    <h1><i class="fas fa-snowflake"></i> تبريد وتكييف حجايجي</h1>
+                    <p><i class="fas fa-tools"></i> إصلاح احترافي للمكيفات والثلاجات | خدمة سريعة وموثوقة</p>
+                </div>
+                <div style="display:flex;align-items:center;gap:16px;">
+                    <div class="tech-badge">
+                        <span>المالك والتقني المعتمد</span>
+                        <strong>حجايجي لحسن</strong>
+                        <i class="fas fa-certificate" style="margin-right:6px;color:var(--accent);"></i>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn" id="themeToggle" title="تبديل الوضع الداكن/الفاتح">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- STATS CARDS -->
+        <section class="stats-grid" id="statsCards" aria-label="الإحصائيات">
+            <article class="stat-card">
+                <div class="stat-info">
+                    <h3>إجمالي الطلبات</h3>
+                    <div class="number" id="totalCount">0</div>
+                </div>
+                <div class="stat-icon blue"><i class="fas fa-clipboard-list"></i></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-info">
+                    <h3>قيد الانتظار</h3>
+                    <div class="number" id="pendingCount">0</div>
+                </div>
+                <div class="stat-icon orange"><i class="fas fa-hourglass-half"></i></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-info">
+                    <h3>قيد الإصلاح</h3>
+                    <div class="number" id="progressCount">0</div>
+                </div>
+                <div class="stat-icon purple"><i class="fas fa-wrench"></i></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-info">
+                    <h3>مكتمل</h3>
+                    <div class="number" id="completedCount">0</div>
+                </div>
+                <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+            </article>
+        </section>
+
+        <!-- CHARTS ROW -->
+        <section class="charts-row" aria-label="الرسوم البيانية">
+            <article class="chart-card">
+                <h3><i class="fas fa-chart-pie"></i> توزيع الطلبات حسب الحالة</h3>
+                <canvas id="statusChart" height="220" aria-label="رسم بياني دائري"></canvas>
+            </article>
+            <article class="chart-card">
+                <h3><i class="fas fa-chart-line"></i> لمحة سريعة</h3>
+                <div class="quick-stats">
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="quick-stat-info">
+                            <div class="label">إجمالي العملاء المسجلين</div>
+                            <div class="value" id="uniqueClientsCount">0</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-icon" style="background:#fef3c7;color:#d97706;"><i class="fas fa-coins"></i></div>
+                        <div class="quick-stat-info">
+                            <div class="label">مجموع الإيرادات (دج)</div>
+                            <div class="value" id="totalRevenue">0</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-icon" style="background:#ede9fe;color:#7c3aed;"><i class="fas fa-calendar-check"></i></div>
+                        <div class="quick-stat-info">
+                            <div class="label">آخر طلب مسجل</div>
+                            <div class="value" id="lastRequestDate">—</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-icon" style="background:#fce7f3;color:#db2777;"><i class="fas fa-star"></i></div>
+                        <div class="quick-stat-info">
+                            <div class="label">متوسط السعر للطلب</div>
+                            <div class="value" id="avgPrice">0 دج</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- TABS NAVIGATION -->
+        <nav class="tabs-nav" role="tablist" aria-label="التنقل الرئيسي">
+            <button class="tab-btn active" data-tab="requests" role="tab" aria-selected="true">
+                <i class="fas fa-list"></i> الطلبات
+            </button>
+            <button class="tab-btn" data-tab="form" role="tab" aria-selected="false">
+                <i class="fas fa-plus-circle"></i> إضافة / تعديل
+            </button>
+            <button class="tab-btn" data-tab="reports" role="tab" aria-selected="false">
+                <i class="fas fa-chart-bar"></i> التقارير
+            </button>
+            <button class="tab-btn" data-tab="clients" role="tab" aria-selected="false">
+                <i class="fas fa-address-book"></i> العملاء
+            </button>
+        </nav>
+
+        <!-- TAB: REQUESTS -->
+        <section class="tab-panel active" id="tab-requests" role="tabpanel">
+            <div class="table-toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="بحث باسم العميل أو الهاتف أو الجهاز..." aria-label="بحث">
+                </div>
+                <div class="table-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="exportToExcel()">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="exportBackup()">
+                        <i class="fas fa-download"></i> نسخة احتياطية
+                    </button>
+                    <label class="btn btn-secondary btn-sm" style="cursor:pointer;">
+                        <i class="fas fa-upload"></i> استيراد
+                        <input type="file" accept=".json" style="display:none;" onchange="importBackup(this)">
+                    </label>
+                    <button class="btn btn-danger btn-sm" onclick="confirmClearAll()">
+                        <i class="fas fa-trash"></i> مسح الكل
+                    </button>
+                </div>
+            </div>
+            <div class="table-section">
+                <table id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>العميل</th>
+                            <th>الهاتف</th>
+                            <th>الجهاز</th>
+                            <th>العطل</th>
+                            <th>السعر (دج)</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                            <th style="width:140px">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fas fa-spinner fa-spin"></i> جاري تحميل البيانات...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB: FORM -->
+        <section class="tab-panel" id="tab-form" role="tabpanel">
+            <div class="form-card">
+                <div class="section-title">
+                    <i class="fas fa-plus-circle"></i> 
+                    <span id="formTitleText">طلب صيانة جديد</span>
+                </div>
+                <form class="form-grid" id="repairForm" onsubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <label for="customerName"><i class="fas fa-user"></i> اسم العميل *</label>
+                        <input type="text" id="customerName" placeholder="مثال: أحمد بن سالم" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone"><i class="fas fa-phone-alt"></i> رقم الهاتف</label>
+                        <input type="tel" id="phone" placeholder="05XXXXXXXX">
+                    </div>
+                    <div class="input-group">
+                        <label for="deviceType"><i class="fas fa-microchip"></i> نوع الجهاز *</label>
+                        <select id="deviceType" required>
+                            <option value="مكيف">مكيف هواء</option>
+                            <option value="ثلاجة">ثلاجة / براد</option>
+                            <option value="غسالة">غسالة</option>
+                            <option value="مجفف">مجفف ملابس</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="price"><i class="fas fa-tag"></i> السعر (دج)</label>
+                        <input type="number" id="price" placeholder="سعر الإصلاح" value="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="requestDate"><i class="fas fa-calendar-day"></i> تاريخ الطلب</label>
+                        <input type="date" id="requestDate">
+                    </div>
+                    <div class="input-group">
+                        <label for="issue"><i class="fas fa-clipboard"></i> وصف العطل</label>
+                        <textarea id="issue" rows="3" placeholder="تفاصيل العطل..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="status"><i class="fas fa-chart-simple"></i> الحالة</label>
+                        <select id="status">
+                            <option value="قيد الانتظار">قيد الانتظار</option>
+                            <option value="قيد الإصلاح">قيد الإصلاح</option>
+                            <option value="مكتمل">مكتمل</option>
+                            <option value="ملغي">ملغي</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="saveBtn">
+                            <i class="fas fa-save"></i> حفظ الطلب
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelEditBtn">
+                            <i class="fas fa-undo-alt"></i> إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB: REPORTS -->
+        <section class="tab-panel" id="tab-reports" role="tabpanel">
+            <div class="report-cards">
+                <article class="report-card">
+                    <h4><i class="fas fa-calendar-alt"></i> تقرير الشهر الحالي</h4>
+                    <div id="monthlyReport">
+                        <div class="report-item">
+                            <span class="label">عدد الطلبات</span>
+                            <span class="value" id="monthCount">0</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="label">الإيرادات</span>
+                            <span class="value positive" id="monthRevenue">0 دج</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="label">المكيفات</span>
+                            <span class="value" id="monthAC">0</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="label">الثلاجات</span>
+                            <span class="value" id="monthFridge">0</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="report-card">
+                    <h4><i class="fas fa-chart-pie"></i> توزيع الأجهزة</h4>
+                    <canvas id="deviceChart" height="180" aria-label="رسم بياني للأجهزة"></canvas>
+                </article>
+                <article class="report-card">
+                    <h4><i class="fas fa-money-bill-wave"></i> أعلى 5 طلبات قيمة</h4>
+                    <div id="topOrders"></div>
+                </article>
+            </div>
+            <div class="chart-card" style="margin-top:20px;">
+                <h3><i class="fas fa-chart-area"></i> الإيرادات اليومية (آخر 30 يوم)</h3>
+                <canvas id="revenueChart" height="200" aria-label="رسم بياني للإيرادات"></canvas>
+            </div>
+        </section>
+
+        <!-- TAB: CLIENTS -->
+        <section class="tab-panel" id="tab-clients" role="tabpanel">
+            <div class="table-section">
+                <div class="section-title"><i class="fas fa-users"></i> قائمة العملاء</div>
+                <table id="clientsTable">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>عدد الطلبات</th>
+                            <th>إجمالي المبالغ</th>
+                            <th>آخر طلب</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsBody">
+                        <tr>
+                            <td colspan="5" style="text-align:center;padding:40px;">لا يوجد عملاء مسجلون</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <i class="fas fa-copyright"></i> 2026 <strong>حجايجي لحسن</strong> — نظام متكامل لتسيير صيانة المكيفات والثلاجات | جميع الحقوق محفوظة
+        </footer>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <h3 id="modalTitle">تأكيد</h3>
+            <p id="modalText">هل أنت متأكد؟</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                <button class="btn btn-danger" id="modalConfirm">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- INVOICE PRINT AREA -->
+    <div class="invoice-print" id="invoicePrint" aria-hidden="true"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
