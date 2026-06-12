@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="لحسن حجاجي - تقني إصلاح تجهيزات التبريد والتكييف. خدمة سريعة، جودة عالية، ضمان حقيقي.">
+<meta name="theme-color" content="#1e4663">
+<title>لحسن حجاجي | صيانة وإصلاح التبريد والتكييف</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+--primary:#1e4663;
+--accent:#2c9b6e;
+--accent-light:#e8f5e9;
+--whatsapp:#25D366;
+--whatsapp-dark:#1da15a;
+--bg:#eef2f5;
+--card:#ffffff;
+--text:#1e2a3e;
+--text-light:#5a6e7c;
+--shadow-sm:0 2px 8px rgba(0,0,0,.06);
+--shadow-md:0 8px 24px rgba(0,0,0,.08);
+--shadow-lg:0 20px 50px rgba(0,0,0,.12);
+--radius-sm:.75rem;
+--radius-md:1.2rem;
+--radius-lg:1.8rem;
+--transition:.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);padding:1rem;line-height:1.6;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:1.5rem;position:relative}
+
+/* Animated background particles */
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;background:var(--accent);opacity:.06;animation:float 20s infinite ease-in-out}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(180deg)}}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:all .6s ease-out}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* Hero */
+.hero{text-align:center;padding:2rem 0 1.5rem;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent);border-radius:2px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--primary);margin-bottom:.5rem;font-weight:900;letter-spacing:-1px}
+.hero .subtitle{color:var(--text-light);font-size:1.1rem;margin-bottom:1rem}
+.badge{background:var(--accent-light);display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.2rem;border-radius:50px;font-weight:800;color:var(--accent);font-size:1rem;border:1px solid rgba(44,155,110,.15);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(44,155,110,.2)}50%{box-shadow:0 0 0 10px rgba(44,155,110,0)}}
+.qualities{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.quality{background:#f8f9fc;padding:.4rem 1rem;border-radius:50px;font-weight:600;font-size:.85rem;display:flex;align-items:center;gap:.4rem;transition:var(--transition);border:1px solid transparent}
+.quality:hover{background:var(--accent-light);border-color:var(--accent);transform:translateY(-2px)}
+.quality i{color:var(--accent)}
+
+/* Floating CTA Bar */
+.floating-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-radius:var(--radius-md);padding:1rem;margin:1rem 0;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,.05)}
+.floating-bar .bar-item{display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-radius:50px;background:#f8f9fc;transition:var(--transition)}
+.floating-bar .bar-item:hover{background:var(--accent-light)}
+.floating-bar .bar-item i{color:var(--accent);font-size:1.2rem}
+.floating-bar .bar-item span{font-weight:700;font-size:.9rem}
+.floating-bar .bar-item small{color:var(--text-light);font-size:.75rem}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.4rem;border-radius:50px;font-weight:800;font-size:.95rem;cursor:pointer;transition:var(--transition);border:none;font-family:'Tajawal',sans-serif;text-decoration:none}
+.btn-wa{background:linear-gradient(135deg,var(--whatsapp),var(--whatsapp-dark));color:#fff;box-shadow:0 4px 15px rgba(37,211,102,.35)}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(37,211,102,.45)}
+.btn-wa:active{transform:translateY(0)}
+.btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+.btn-outline:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.btn-ghost{background:transparent;border:1px solid #e2edf2;color:var(--text-light);font-size:.8rem;padding:.4rem 1rem}
+.btn-ghost:hover{background:#f0f5fa;color:var(--primary)}
+.btn-lg{padding:.8rem 2rem;font-size:1.05rem}
+
+/* Cards */
+.card{background:var(--card);border-radius:var(--radius-md);padding:1.5rem;box-shadow:var(--shadow-md);transition:var(--transition);border:1px solid rgba(0,0,0,.04);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;right:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--primary));transform:scaleX(0);transform-origin:right;transition:var(--transition)}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{font-size:2.5rem;color:var(--accent);margin-bottom:1rem;display:inline-block;transition:var(--transition)}
+.card:hover .card-icon{transform:scale(1.1) rotate(-5deg)}
+.card h3{font-size:1.3rem;margin-bottom:.5rem;font-weight:800}
+.card p{color:var(--text-light);font-size:.9rem;line-height:1.6}
+
+/* Section headers */
+.section{margin:2.5rem 0}
+.section-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem}
+.section-header h2{font-size:1.7rem;font-weight:800;position:relative}
+.section-header h2::after{content:'';position:absolute;bottom:-6px;right:0;width:40px;height:3px;background:var(--accent);border-radius:3px}
+.section-header i{color:var(--accent);font-size:1.4rem}
+
+/* Experience banner */
+.exp-banner{background:linear-gradient(135deg,var(--accent-light),#f0f7f4);border-radius:var(--radius-md);padding:1.5rem;text-align:center;margin:1.5rem 0;border:1px solid rgba(44,155,110,.1);position:relative;overflow:hidden}
+.exp-banner::before{content:'❄';position:absolute;top:-10px;left:-10px;font-size:4rem;opacity:.05}
+.exp-banner p{font-size:1.15rem;font-weight:600;color:var(--primary)}
+.exp-banner strong{color:var(--accent)}
+
+/* Services grid */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.service-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid #f0f0f0}
+
+/* Popular items */
+.popular-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.popular-item{background:#f9fbfd;border-radius:var(--radius-sm);padding:1rem;display:flex;align-items:center;gap:1rem;border-right:4px solid var(--accent);transition:var(--transition);cursor:pointer}
+.popular-item:hover{background:var(--accent-light);transform:translateX(-4px)}
+.popular-item i{font-size:1.6rem;color:var(--accent);width:2rem;text-align:center;transition:var(--transition)}
+.popular-item:hover i{transform:scale(1.2)}
+.popular-item .pop-text{flex:1;font-weight:600;font-size:.9rem}
+.popular-item .pop-price{color:var(--accent);font-weight:800;font-size:.85rem}
+
+/* Tech card */
+.tech-card{background:linear-gradient(135deg,#fff 0%,#f7fafd 100%);border-radius:var(--radius-lg);padding:2rem;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:space-between;margin:2rem 0;box-shadow:var(--shadow-md);border:1px solid #e0ecf3;position:relative;overflow:hidden}
+.tech-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--accent),var(--primary))}
+.tech-info{flex:2;min-width:280px}
+.tech-info h3{font-size:2rem;color:var(--primary);font-weight:900}
+.tech-info .title{font-weight:800;color:var(--accent);margin-bottom:1rem;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
+.features{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.features span{background:#e6f0ef;padding:.35rem .9rem;border-radius:30px;font-size:.82rem;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:.4rem}
+.features span i{color:var(--accent);font-size:.8rem}
+.tech-avatar{flex:1;min-width:140px;text-align:center;position:relative}
+.tech-avatar .avatar-ring{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));margin:0 auto;display:flex;align-items:center;justify-content:center;animation:spin-slow 20s linear infinite}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.tech-avatar .avatar-inner{width:100px;height:100px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+.tech-avatar .avatar-inner i{font-size:3rem;color:var(--accent)}
+.tech-avatar p{margin-top:.5rem;font-weight:800;color:var(--primary)}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+.stat-item{text-align:center;padding:1rem;background:#f8f9fc;border-radius:var(--radius-sm);transition:var(--transition)}
+.stat-item:hover{background:var(--accent-light);transform:translateY(-3px)}
+.stat-item .stat-num{font-size:1.8rem;font-weight:900;color:var(--accent);display:block}
+.stat-item .stat-label{font-size:.8rem;color:var(--text-light);font-weight:600}
+
+/* WhatsApp sticky button */
+.wa-sticky{position:fixed;bottom:20px;left:20px;z-index:999;width:60px;height:60px;background:linear-gradient(135deg,var(--whatsapp),var(--whatsapp-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);cursor:pointer;transition:var(--transition);animation:bounce 2s infinite}
+.wa-sticky:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+.wa-sticky i{color:#fff;font-size:1.8rem}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Footer */
+footer{text-align:center;margin-top:2.5rem;padding-top:1.5rem;color:var(--text-light);border-top:2px solid #f0f0f0;font-size:.8rem}
+footer .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap}
+footer .footer-links a{color:var(--text-light);text-decoration:none;font-weight:600;transition:var(--transition)}
+footer .footer-links a:hover{color:var(--accent)}
+
+/* Toast notification */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--primary);color:#fff;padding:1rem 2rem;border-radius:50px;font-weight:700;box-shadow:var(--shadow-lg);z-index:1000;transition:all .4s ease;display:flex;align-items:center;gap:.6rem;opacity:0}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast i{color:var(--whatsapp)}
+
+/* Responsive */
+@media(max-width:768px){
+.container{padding:1rem}
+.hero h1{font-size:2rem}
+.floating-bar{padding:.8rem}
+.tech-card{padding:1.5rem}
+.tech-avatar .avatar-ring{width:100px;height:100px}
+.tech-avatar .avatar-inner{width:80px;height:80px}
+.wa-sticky{width:50px;height:50px;bottom:15px;left:15px}
+.wa-sticky i{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Background particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><i class="fab fa-whatsapp"></i><span id="toastMsg">جاري فتح واتساب...</span></div>
+
+<div class="container">
+
+<!-- Hero -->
+<div class="hero reveal">
+<h1>لحسن حجاجي</h1>
+<p class="subtitle">أفضل تقني إصلاح تجهيزات التبريد والتكييف في المنطقة</p>
+<div class="badge"><i class="fas fa-tools"></i> تقني إصلاح تجهيزات التبريد والتكييف</div>
+<div class="qualities">
+<span class="quality"><i class="fas fa-bolt"></i> خدمة سريعة</span>
+<span class="quality"><i class="fas fa-star"></i> جودة عالية</span>
+<span class="quality"><i class="fas fa-shield-alt"></i> ضمان حقيقي</span>
+<span class="quality"><i class="fas fa-tag"></i> أسعار تنافسية</span>
+</div>
+</div>
+
+<!-- Floating Action Bar -->
+<div class="floating-bar reveal">
+<div class="bar-item">
+<i class="fas fa-calendar-check"></i>
+<div>
+<span>احجز الآن</span>
+<small>ضمان على الخدمة</small>
+</div>
+</div>
+<button class="btn btn-wa" data-msg="أحتاج حجز خدمة إصلاح - ضمان مطلوب.">
+حجز فوري <i class="fab fa-whatsapp"></i>
+</button>
+<div class="bar-item">
+<i class="fab fa-whatsapp"></i>
+<div>
+<span>استشارة مجانية</span>
+<small>رد خلال دقائق</small>
+</div>
+</div>
+<button class="btn btn-outline" onclick="openWhatsApp('السلام عليكم، أرغب في الاستفسار عن الأسعار والخدمات.')">
+أرسل رسالة <i class="fab fa-whatsapp"></i>
+</button>
+</div>
+
+<!-- Stats -->
+<div class="stats-row reveal">
+<div class="stat-item">
+<span class="stat-num">+10</span>
+<span class="stat-label">سنوات خبرة</span>
+</div>
+<div class="stat-item">
+<span class="stat-num">+5000</span>
+<span class="stat-label">عميل راضٍ</span>
+</div>
+<div class="stat-item">
+<span class="stat-num">24/7</span>
+<span class="stat-label">خدمة طوارئ</span>
+</div>
+<div class="stat-item">
+<span class="stat-num">100%</span>
+<span class="stat-label">ضمان الخدمة</span>
+</div>
+</div>
+
+<!-- Experience Banner -->
+<div class="exp-banner reveal">
+<p><i class="fas fa-snowflake"></i> <strong>خبرة في إصلاح المكيفات والثلاجات</strong> — خدمات إصلاح وصيانة احترافية بأسعار مناسبة مع ضمان شامل على جميع الأعمال.</p>
+</div>
+
+<!-- Services -->
+<div class="section reveal">
+<div class="section-header">
+<i class="fas fa-wrench"></i>
+<h2>خدماتنا المتخصصة</h2>
+</div>
+<div class="services-grid">
+<div class="card">
+<div class="card-icon"><i class="fas fa-thermometer-half"></i></div>
+<h3>إصلاح الثلاجات</h3>
+<p>إصلاح جميع أنواع الثلاجات المنزلية والتجارية بجميع الماركات العالمية بأحدث الأدوات.</p>
+<div class="service-footer">
+<button class="btn btn-ghost" data-service="ثلاجات">عرض التفاصيل</button>
+<i class="fas fa-check-circle" style="color:var(--accent)"></i>
+</div>
+</div>
+<div class="card">
+<div class="card-icon"><i class="fas fa-wind"></i></div>
+<h3>إصلاح المكيفات</h3>
+<p>إصلاح وصيانة جميع أنواع المكيفات (سبليت، شباك، مركزية، دولابي) بكفاءة عالية.</p>
+<div class="service-footer">
+<button class="btn btn-ghost" data-service="مكيفات">عرض التفاصيل</button>
+<i class="fas fa-check-circle" style="color:var(--accent)"></i>
+</div>
+</div>
+<div class="card">
+<div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+<h3>صيانة دورية</h3>
+<p>صيانة دورية شاملة تطيل عمر الجهاز وتوفر في استهلاك الكهرباء حتى 40%.</p>
+<div class="service-footer">
+<button class="btn btn-ghost" data-service="صيانة دورية">عرض التفاصيل</button>
+<i class="fas fa-charging-station" style="color:var(--accent)"></i>
+</div>
+</div>
+<div class="card">
+<div class="card-icon"><i class="fas fa-exchange-alt"></i></div>
+<h3>تركيب و فك</h3>
+<p>تركيب ونقل وفك المكيفات مع شحن الفريون وضمان الترسيب والعزل الحراري.</p>
+<div class="service-footer">
+<button class="btn btn-ghost" data-service="تركيب وفك">عرض التفاصيل</button>
+<i class="fas fa-truck" style="color:var(--accent)"></i>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Popular Services -->
+<div class="section reveal">
+<div class="section-header">
+<i class="fas fa-chart-line"></i>
+<h2>خدماتنا الأكثر طلباً</h2>
+</div>
+<div class="popular-grid">
+<div class="popular-item" data-service="تكييف ضعيف التبريد">
+<i class="fas fa-temperature-low"></i>
+<span class="pop-text">إصلاح المكيفات لا تبرد أو ضعيفة التبريد</span>
+<span class="pop-price">اطلب الآن</span>
+</div>
+<div class="popular-item" data-service="ثلاجة لا تبرد">
+<i class="fas fa-temperature-high"></i>
+<span class="pop-text">إصلاح الثلاجات لا تبرد أو لا تعمل</span>
+<span class="pop-price">اطلب الآن</span>
+</div>
+<div class="popular-item" data-service="شحن فريون و كشف تسرب">
+<i class="fas fa-fill-drip"></i>
+<span class="pop-text">تعبئة شحن الفريون و كشف التسرب</span>
+<span class="pop-price">اطلب الآن</span>
+</div>
+<div class="popular-item" data-service="تنظيف وصيانة">
+<i class="fas fa-broom"></i>
+<span class="pop-text">صيانة تنظيف المكيفات والثلاجات</span>
+<span class="pop-price">اطلب الآن</span>
+</div>
+</div>
+</div>
+
+<!-- Tech Profile -->
+<div class="tech-card reveal">
+<div class="tech-info">
+<h3>لحسن حجاجي</h3>
+<div class="title"><i class="fas fa-certificate"></i> تقني إصلاح تجهيزات التبريد والتكييف المعتمد</div>
+<p style="color:var(--text-light);margin-bottom:1rem">متخصص في صيانة وإصلاح جميع أنواع أجهزة التبريد والتكييف مع خبرة واسعة في التعامل مع الماركات العالمية.</p>
+<div class="features">
+<span><i class="fas fa-calendar-alt"></i> خبرة +10 سنوات</span>
+<span><i class="fas fa-city"></i> جميع المناطق</span>
+<span><i class="fas fa-clock"></i> استجابة سريعة</span>
+<span><i class="fas fa-handshake"></i> ضمان شامل</span>
+<span><i class="fas fa-medal"></i> قطع غيار أصلية</span>
+</div>
+<div class="contact-buttons" style="display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap">
+<button class="btn btn-wa btn-lg" data-msg="أريد التحدث بخصوص خدمة سريعة لتكييف/ثلاجة.">
+<i class="fab fa-whatsapp"></i> اتصل الآن
+</button>
+<button class="btn btn-outline btn-lg" onclick="openWhatsApp('تواصل بخصوص الخبرة، أرجو الرد.')">
+<i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+</button>
+</div>
+</div>
+<div class="tech-avatar">
+<div class="avatar-ring">
+<div class="avatar-inner">
+<i class="fas fa-user-astronaut"></i>
+</div>
+</div>
+<p>خدمة موثوقة</p>
+</div>
+</div>
+
+<!-- Footer -->
+<footer>
+<div class="footer-links">
+<a href="#" onclick="openWhatsApp('مرحباً، أريد الاستفسار عن خدمة.');return false;">الرئيسية</a>
+<a href="#" onclick="openWhatsApp('أريد معرفة المزيد عن الخدمات.');return false;">الخدمات</a>
+<a href="#" onclick="openWhatsApp('أريد الاتصال بفريق الدعم.');return false;">اتصل بنا</a>
+</div>
+<p><i class="fas fa-snowflake" style="color:var(--accent)"></i> ضمان حقيقي على جميع الخدمات | خدمة سريعة واحترافية | نسعد بخدمتكم</p>
+<p style="margin-top:.5rem;font-size:.7rem">© 2026 لحسن حجاجي - جميع الحقوق محفوظة</p>
+</footer>
+</div>
+
+<!-- Sticky WhatsApp Button -->
+<div class="wa-sticky" onclick="openWhatsApp('مرحباً، أريد خدمة صيانة أو إصلاح.')" title="تواصل عبر واتساب">
+<i class="fab fa-whatsapp"></i>
+</div>
+
+<script>
+const WHATSAPP_NUMBER="213667449417";
+const DEFAULT_MSG="مرحباً، أرغب في حجز خدمة إصلاح وصيانة أجهزة التبريد والتكييف. أرجو التواصل معي.";
+
+// Open WhatsApp function
+function openWhatsApp(text=""){
+let msg=text?text+"\n\n"+DEFAULT_MSG:DEFAULT_MSG;
+window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+showToast(text?"جاري فتح واتساب...":"جاري فتح واتساب...");
+}
+
+// Toast notification
+function showToast(message){
+const toast=document.getElementById('toast');
+const toastMsg=document.getElementById('toastMsg');
+toastMsg.textContent=message;
+toast.classList.add('show');
+setTimeout(()=>toast.classList.remove('show'),3000);
+}
+
+// Auto-open WhatsApp on page load (after 2 seconds)
+window.addEventListener('load',function(){
+// Create particles
+const particlesContainer=document.getElementById('particles');
+for(let i=0;i<15;i++){
+const p=document.createElement('div');
+p.className='particle';
+p.style.width=Math.random()*60+20+'px';
+p.style.height=p.style.width;
+p.style.left=Math.random()*100+'%';
+p.style.top=Math.random()*100+'%';
+p.style.animationDelay=Math.random()*20+'s';
+p.style.animationDuration=Math.random()*20+15+'s';
+particlesContainer.appendChild(p);
+}
+
+// Auto open WhatsApp
+setTimeout(()=>{
+openWhatsApp("مرحباً، زرت موقعكم وأرغب في خدمة صيانة أو إصلاح.");
+},2000);
+});
+
+// Scroll reveal animation
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('active');
+}
+});
+},{threshold:.1});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Button event listeners
+document.querySelectorAll(".btn-wa").forEach(b=>{
+b.addEventListener("click",()=>openWhatsApp(b.dataset.msg||""));
+});
+
+document.querySelectorAll(".popular-item").forEach(item=>{
+item.addEventListener("click",()=>{
+const service=item.dataset.service;
+openWhatsApp(`أحتاج خدمة: ${service} - أرجو المساعدة في أقرب وقت.`);
+});
+});
+
+document.querySelectorAll(".btn-ghost").forEach(b=>{
+b.addEventListener("click",(e)=>{
+e.stopPropagation();
+const service=b.dataset.service;
+showToast(`📞 تواصل عبر واتساب لمزيد من التفاصيل حول "${service}"`);
+setTimeout(()=>openWhatsApp(`أريد معرفة المزيد عن خدمة: ${service}`),800);
+});
+});
+</script>
+</body>
+</html>
