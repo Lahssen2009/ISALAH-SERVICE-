@@ -34,6 +34,7 @@
       }
     ]
   };
+  var iconUrl = "icon.png";
   var blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
   var url = URL.createObjectURL(blob);
   var link = document.createElement('link');
@@ -42,11 +43,9 @@
   document.currentScript.parentNode.insertBefore(link, document.currentScript);
 })();
 </script>
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
